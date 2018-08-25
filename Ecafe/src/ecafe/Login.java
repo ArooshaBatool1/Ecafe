@@ -27,7 +27,7 @@ import jdk.internal.org.objectweb.asm.tree.analysis.Frame;
 
 /**
  *
- * @author Maryam
+ * @author aroosha
  */
 public class Login extends javax.swing.JFrame  {
     public static String uid=null;
@@ -77,6 +77,8 @@ public class Login extends javax.swing.JFrame  {
   //frame.setSize(400, 400);
   frame.setLayout(null);
   frame.setVisible(true);
+    frame.toFront();
+        frame.repaint();
   btn1.addActionListener(new ActionListener() 
 {
     public void actionPerformed(ActionEvent e) {
@@ -89,7 +91,7 @@ String uname = t1.getText();
          //loading the jdbc driver
          Class.forName("com.mysql.jdbc.Driver").newInstance();
     //get a connection to database
-           Connection myConn=DriverManager.getConnection("jdbc:mysql://localhost:3306/Ecafedb","root","");
+           Connection myConn=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecafe","root","");
     Statement stmt=(Statement)myConn.createStatement();
            //execute sql query
           ResultSet rs=stmt.executeQuery("select * from Users where Username='"+uname+"'");
@@ -101,7 +103,8 @@ String uname = t1.getText();
           
           }
                 
-   if(uname.equals(dname) && pass.equals(dpass))
+   if( !uname.equals("Amal")){
+       if( uname.equals(dname) && pass.equals(dpass))
    {
       
        try {
@@ -117,10 +120,28 @@ String uname = t1.getText();
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
        } catch (InstantiationException ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-       }
+       }}
      
     }
-    else
+   else  if(dname.equals("Amal") && pass.equals("123"))
+          {
+          
+          try {
+           frame.dispose();
+          Admin a;
+           a= new Admin();
+      a.setVisible(true);
+      JLabel label = new JLabel("Welcome:"+uname);
+    
+      a.getContentPane().add(label); } catch (SQLException ex) {
+           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (ClassNotFoundException ex) {
+           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (InstantiationException ex) {
+           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+       }
+          }
+   else
     {
         JOptionPane.showMessageDialog(frame, "Please enter your details again.");
     
@@ -140,6 +161,7 @@ String uname = t1.getText();
   
         
     }
+    
 });
   
     }
@@ -202,6 +224,7 @@ String uname = t1.getText();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login();
+              
             }
         });
     }

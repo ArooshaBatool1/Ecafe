@@ -7,7 +7,7 @@ package ecafe;
 
 /**
  *
- * @author Maryam
+ * @author aroosha
  */
 public class NewJPanel extends javax.swing.JPanel {
 
